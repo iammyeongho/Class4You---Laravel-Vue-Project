@@ -171,7 +171,7 @@ class BoardController extends Controller
         // 페이징 처리
         $boardData = $boardDataQuery->orderBy('boards.created_at', 'desc')->paginate(10);
 
-        Log::debug($boardData);
+        // Log::debug($boardData);
         
         // 유저 이메일값과 코멘트 값 갯수를 내림차순으로
         $userCntData = User::select('users.UserEmail', DB::raw('count(*) as cnt'))
@@ -343,7 +343,7 @@ class BoardController extends Controller
 
         Board::where('BoardID', $request->BoardID)->update($data);
 
-        Log::debug($data);
+        // Log::debug($data);
     }
 
     public function putBoardCompleteUpdate(Request $request) {
@@ -563,7 +563,7 @@ class BoardController extends Controller
             ->orderBy('created_at', 'desc')
             ->get();
 
-        Log::debug($responseData);
+        // Log::debug($responseData);
             
         $instructorData = Comment::select('boards.ClassID', 'comments.CommentID', 'comments.UserID', 'comments.BoardID', 'comments.InstructorID', 'comments.CommentContent')
             ->join('boards', 'boards.BoardID', 'comments.BoardID')
@@ -584,8 +584,8 @@ class BoardController extends Controller
     // 강의 질문 게시글 작성 함수
     public function postClassQuestion(Request $request) {
 
-        Log::debug("-----------------------------------------------");
-        Log::debug($request);
+        // Log::debug("-----------------------------------------------");
+        // Log::debug($request);
 
         // 유저가 수강한 강의 조회
         $EnrollmentData = Enrollment::select('EnrollmentID')
@@ -600,8 +600,8 @@ class BoardController extends Controller
             ->where('class_infos.ClassID', $request->ClassID) 
             ->first();
         
-        Log::debug("유저 이메일 데이터");
-        Log::debug($UserEmailData);
+        // Log::debug("유저 이메일 데이터");
+        // Log::debug($UserEmailData);
 
         // 조회한 수강 아이디($EnrollmentData)를 리뷰 데이터($request)에 추가    
         $request->merge([
@@ -612,8 +612,8 @@ class BoardController extends Controller
 
         $data = $request->only('EnrollmentID','UserID', 'ClassID', 'BoardID', 'BoardTitle', 'BoardComment', 'BoardCategoryID', 'UserEmail');
 
-        Log::debug('====================================================');
-        Log::debug($data);
+        // Log::debug('====================================================');
+        // Log::debug($data);
 
         $result = Board::create($data);
 
@@ -652,7 +652,7 @@ class BoardController extends Controller
         //         ->orderBy('boards.created_at','desc')
         //         ->get();
 
-                Log::debug($responseData);        
+        // Log::debug($responseData);        
 
         return response()->json($responseData);
         // return response()->json($result);
@@ -678,16 +678,16 @@ class BoardController extends Controller
     // 강의 게시글 수정
     public function putClassQuestion(Request $request) {
 
-        Log::debug('====================================================');
-        Log::debug($request);
+        // Log::debug('====================================================');
+        // Log::debug($request);
         
         $classQuestionData = $request->only('EnrollmentID','UserID', 'ClassID', 'BoardID', 'BoardTitle', 'BoardComment', 'BoardCategoryID');
 
         $data = Board::where('BoardID', $request->BoardID)
                     ->update($classQuestionData);
 
-        Log::debug('====================================================');
-        Log::debug($classQuestionData);
+        // Log::debug('====================================================');
+        // Log::debug($classQuestionData);
 
         return response()->json($classQuestionData);            
     }

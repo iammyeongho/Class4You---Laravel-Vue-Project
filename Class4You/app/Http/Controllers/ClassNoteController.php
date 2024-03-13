@@ -36,8 +36,8 @@ class ClassNoteController extends Controller
             ->orderBy('class_notes.created_at', 'desc')
             ->get();
         
-        Log::debug($result);
-        Log::debug($EnrollmentData);
+        // Log::debug($result);
+        // Log::debug($EnrollmentData);
 
         return response()->json([
             'noteData' => $result,
@@ -49,11 +49,11 @@ class ClassNoteController extends Controller
     // 강의 노트 작성
     public function postClassNoteData(Request $request) {
 
-        Log::debug($request->UserID);
-        Log::debug($request->ClassID);
-        Log::debug('프론트에서 받은 데이터---------------------------------------------');
-        Log::debug($request);
-        Log::debug($request->all());
+        // Log::debug($request->UserID);
+        // Log::debug($request->ClassID);
+        // Log::debug('프론트에서 받은 데이터---------------------------------------------');
+        // Log::debug($request);
+        // Log::debug($request->all());
 
         $EnrollmentData = Enrollment::select('EnrollmentID')
             ->where('UserID', $request->UserID) 
@@ -64,12 +64,12 @@ class ClassNoteController extends Controller
         $data = $request->only('EnrollmentID', 'ClassNoteComment', 'ClassNoteID');
         
 
-        Log::debug($data);
+        // Log::debug($data);
 
         $result = ClassNote::create($data);
 
-        Log::debug("작성된 데이터-------------------------------------------");
-        Log::debug($result);
+        // Log::debug("작성된 데이터-------------------------------------------");
+        // Log::debug($result);
 
         
         // $responseData = ClassNote::select('class_notes.ClassNoteID',

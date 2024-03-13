@@ -18,8 +18,8 @@ class ReportController extends Controller
     // 게시판 신고 함수
     public function postReportData(Request $request) {
 
-        Log::debug("리퀘스트값==============================================");
-        Log::debug($request);
+        // Log::debug("리퀘스트값==============================================");
+        // Log::debug($request);
 
         $data = new Report;
         $data->UserID = Auth::id();
@@ -27,8 +27,8 @@ class ReportController extends Controller
         $data->fill($request->all());
         $data->save();
 
-        Log::debug("데이터-----------------------------");
-        Log::debug($data);
+        // Log::debug("데이터-----------------------------");
+        // Log::debug($data);
 
         return response()->json(['success' => true]);
     }
@@ -37,15 +37,15 @@ class ReportController extends Controller
     public function postCommentReportData(Request $request) {
 
         // Log::all("postCommentReportData method called");
-        Log::debug("리퀘스트값==============================================");
-        Log::debug($request);
+        // Log::debug("리퀘스트값==============================================");
+        // Log::debug($request);
         
         $data = $request->only('ReportID','BoardID','CommentID','UserID','ReportContent','ReportState');
         $data['UserID'] = Auth::id(); 
 
         $result = Report::create($data);
 
-        Log::debug($result);
+        // Log::debug($result);
 
         $responseData = Report::all();
 
@@ -71,8 +71,8 @@ class ReportController extends Controller
         // paginate 메서드를 사용하여 페이지네이션 적용
         // $boardReportData = $queryBuilder->paginate(10);
 
-        Log::debug("데이터값==============================================================");
-        Log::debug($boardReportData);
+        // Log::debug("데이터값==============================================================");
+        // Log::debug($boardReportData);
 
         return response()->json([
             'boardReportData' => $boardReportData,

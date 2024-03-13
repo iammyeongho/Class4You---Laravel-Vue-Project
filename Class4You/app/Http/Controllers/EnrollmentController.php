@@ -57,7 +57,7 @@ class EnrollmentController extends Controller
                 'PaymentState' => 1,
             ];
 
-            Log::debug($ClassPaymentData);
+            // Log::debug($ClassPaymentData);
 
             ClassPayment::create($ClassPaymentData);
 

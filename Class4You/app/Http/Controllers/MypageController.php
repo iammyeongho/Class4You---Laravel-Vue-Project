@@ -366,7 +366,7 @@ class MypageController extends Controller
     }
 
     function putUserbasicData(Request $request) {
-        Log::debug($request->UserPhoneNumber);
+        // Log::debug($request->UserPhoneNumber);
 
         $user = User::find($request->UserID);
 
@@ -407,12 +407,12 @@ class MypageController extends Controller
 
 
     function deleteUserpasswordData(Request $request) {
-        Log::debug($request);
+        // Log::debug($request);
         $result = User::find($request->UserID);
         $deletedPassword = $request->input('deletedPassword');
 
-        Log::debug($result);
-        Log::debug($deletedPassword);
+        // Log::debug($result);
+        // Log::debug($deletedPassword);
 
     
         if(Auth::check()) {
@@ -420,7 +420,7 @@ class MypageController extends Controller
             $requestUserId = $request->UserID;
 
             if ($loggedInUserId == $requestUserId) {
-                Log::debug($result);
+                // Log::debug($result);
                 if (Hash::check($deletedPassword, $result->UserPassword)) {
                     // 비밀번호 일치 및 비밀번호 체크 값이 일치하면 계정 삭제
                     $result->delete();

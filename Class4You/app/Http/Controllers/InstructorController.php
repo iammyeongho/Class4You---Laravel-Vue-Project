@@ -283,7 +283,7 @@ class InstructorController extends Controller
 
     public function instructoruserstate(Request $request) {
 
-        Log::debug($request);
+        // Log::debug($request);
         if($request->ban == 'ban') {
             UserStatus::create([
                 'UserID' => $request->UserID,
@@ -405,7 +405,7 @@ class InstructorController extends Controller
     }
 
     public function instructoruserstateput(Request $request) {
-        Log::debug($request);
+        // Log::debug($request);
         if($request->value == 0) {
             $UserStateDate = UserStatus::where('UserStatusID', $request->UserStatusID)
             ->update([
@@ -579,7 +579,7 @@ class InstructorController extends Controller
             ->where('chapters.ClassID', $ClassID)
             ->groupBy('chapters.ClassID', 'chapters.ChapterID', 'chapters.ChapterTitle')
             ->get();
-        Log::debug($ChapterData);
+        // Log::debug($ChapterData);
 
         return response()->json([
             'ChapterData' => $ChapterData,
@@ -816,7 +816,7 @@ class InstructorController extends Controller
 
     public function getmodalclassuserdata(Request $request) {
 
-        LOG::debug($request);
+        // LOG::debug($request);
         $ClassID = $request->ClassID;
 
         $userEnrollmentData = Enrollment::select('users.UserID', 'users.UserEmail', 'users.UserName', 'users.UserPhoneNumber', 'users.UserBirthDate', 'users.created_at','enrollments.ClassID')

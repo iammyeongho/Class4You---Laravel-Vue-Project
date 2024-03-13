@@ -420,7 +420,7 @@ class ClassInfoController extends Controller
             // Collection에 데이터 추가
             $allLessonsData->push($item);
         }
-        Log::debug($allLessonsData);
+        // Log::debug($allLessonsData);
         // Log::debug($classCuri);
 
         // 수강평 평균값
