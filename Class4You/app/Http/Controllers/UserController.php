@@ -127,9 +127,15 @@ class UserController extends Controller
 
     public function kakaologin(Request $request)
     {
+        // Socialite 패키지 사용 (카카오 로그인 위해서)
         try{
+            // Socialite::driver('kakao')는 카카오용 드라이버를 사용하겠다는 것을 의미
+            // setHttpClient(new \GuzzleHttp\Client(['verify' => false]))는 GuzzleHttp 클라이언트를 사용하며 SSL 인증을 비활성화
+            // ->user()는 인증된 사용자의 정보를 가져오는 메서드
             $user = Socialite::driver('kakao')->setHttpClient(new \GuzzleHttp\Client(['verify' => false]))->user();
         } catch(InvalidStateException $e) {
+            // setHttpClient(new \GuzzleHttp\Client(['verify' => false]))를 통해 SSL 인증을 다시 비활성화
+            // stateless()->user()는 사용자의 상태를 무시하고 사용자 정보를 가져오는 메서드
             $user = Socialite::driver('kakao')->setHttpClient(new \GuzzleHttp\Client(['verify' => false]))->stateless()->user();
         }
 
@@ -239,6 +245,14 @@ class UserController extends Controller
             ];
     
             // 이메일 전송
+            // Mail::send() 함수를 사용하여 이메일을 전송
+            // 'mail.mail_form'는 이메일 내용을 담고 있는 뷰(view)의 경로를 나타냅니다. $data 배열의 데이터를 해당 뷰로 전달
+            // ['data' => $data]는 전달할 데이터를 배열 형태로 지정
+
+            // use ($data, $request)는 클로저 내부에서 $data와 $request 변수를 사용할 수 있게
+            // $message->to($request->email)->subject('이메일인증');는 메일을 받는 사람의 이메일 주소를 $request->email로 지정하고, 메일의 제목을 '이메일인증'으로 설정
+            // $message->from('dldmldltmd@gmail.com');는 메일을 보내는 사람의 이메일 주소를 'dldmldltmd@gmail.com'으로 설정
+            // dldmldltmd@gmail.com로 지정했지만 SMTP로 구글 이메일을 config에 넣어놨기 때문에 config에 있는 메일로 전송됨
             Mail::send('mail.mail_form', ['data' => $data], function($message) use ($data, $request) {
                 $message->to($request->email)->subject('이메일인증');
                 $message->from('dldmldltmd@gmail.com');
